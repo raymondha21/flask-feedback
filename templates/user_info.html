@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h1>{{ user.username }}</h1>
+    <div class="navbar">
+        <a href="/logout" class="navbar-toggle pull-right">Logout</a>
+    </div>
+
+    <div class="card">
+
+        <h2 class="card-header">User Info:</h2>
+        <div class="card-body">
+            <p>Email: {{ user.email }}</p>
+            <p>First name: {{ user.first_name }}</p>
+            <p>Last name: {{ user.last_name }}</p>
+        </div>
+    </div>
+    <div class="card" style="margin-top: 2em;">
+        <h2 class="card-header">Feedback: <a href="/users/{{user.username}}/feedback/add" class="btn btn-primary">New</a></h2>
+        {% for feedback in user.feedback %}
+        <div class="card-body">{{feedback.title}}:
+            <p>{{feedback.content}}</p>
+            <form action="/feedback/{{feedback.id}}/delete" method="POST">
+                <a href="/feedback/{{feedback.id}}/update" class="btn btn-primary">Update</a>
+                <button class="btn btn-danger">Delete</a>
+            </form>
+            
+        </div>
+        {% endfor%}
+        
+    </div>
+</div>
+{% endblock %}
